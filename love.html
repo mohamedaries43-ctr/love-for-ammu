@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine? ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff4d6d, #ffdd57);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    color: #4a1c00;
+}
+
+/* Floating background hearts */
+.bg-heart {
+    position: fixed;
+    font-size: 20px;
+    opacity: 0.15;
+    animation: float 8s linear infinite;
+}
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+
+.container {
+    background: rgba(255,255,255,0.45);
+    padding: 30px;
+    border-radius: 20px;
+    width: 340px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1s ease;
+    z-index: 2;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+video {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    padding: 10px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.yes-btn {
+    background: #ff2f2f;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255,0,0,0.6);
+}
+.yes-btn:hover {
+    transform: scale(1.1);
+}
+
+.no-btn {
+    background: #ffd93d;
+    color: #4a1c00;
+    position: absolute;
+}
+
+.love-text {
+    font-size: 18px;
+    margin-top: 15px;
+    line-height: 1.6;
+    min-height: 120px;
+}
+
+.result { display: none; }
+
+/* Heart Popup */
+.heart-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    z-index: 10;
+}
+
+.heart-box {
+    background: #fff0f5;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    width: 320px;
+    animation: zoomIn 0.5s ease;
+    box-shadow: 0 0 30px rgba(255,0,100,0.5);
+}
+
+.big-heart {
+    font-size: 60px;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.heart-message {
+    margin-top: 15px;
+    line-height: 1.6;
+    color: #7a1200;
+}
+
+.close-btn {
+    margin-top: 15px;
+    background: #ff4d6d;
+    color: white;
+}
+
+audio { display: none; }
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+<source src="love-song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Question Section -->
+<div class="container question">
+    <video src="Reply me love.mp4" autoplay muted loop playsinline></video>
+    <h2>Will You Be My Valentine, Ammu? 💍❤️</h2>
+    <button class="btn yes-btn" onclick="showLove()">Yes 💖</button>
+    <button class="btn no-btn" onmouseover="moveButton(this)">No 😜</button>
+</div>
+
+<!-- Result Section -->
+<div class="container result">
+    <video src="Love me.mp4" autoplay muted loop playsinline></video>
+    <h2>She Said YES! 😍❤️</h2>
+    <p class="love-text" id="typingText"></p>
+
+    <!-- Love Counter -->
+    <p id="loveCounter" style="margin-top:10px; font-weight:bold;"></p>
+
+    <button class="btn yes-btn" onclick="openHeart()">Open My Heart 💌</button>
+
+    <p>Happy Valentine’s Day My Love ❤️💛</p>
+</div>
+
+<!-- Heart Popup -->
+<div class="heart-popup" id="heartPopup">
+    <div class="heart-box">
+        <div class="big-heart">💖</div>
+        <div class="heart-message">
+    Hi Ammu…<br><br>
+
+    From today, officially,<br>
+    you are my Valentine 💍❤️<br><br>
+
+    I promise to love you, support you,
+    and make you smile always 😊<br><br>
+
+    Nee vandhadhukku apram dhaan
+    en life unna maari romba azhaga maarirukku.
+    Enakku yen unna ivvalo pudichirukku-nu theriyala Ammu…
+    Unna eppavum vittura koodadhu-nu thonudhu Ammu ❤️<br><br>
+
+    Enakku pudichadhu un sirippu dhaan 😍
+    enna analum adha mattum stop pannidaadha.<br><br>
+
+    Thanks Ammu, naan enna sanda pottalum
+    ennai vittutu pogama irukkaradhukku 💕<br><br>
+
+    Naan ippo dhaan romba lucky ah feel panren Ammu,
+    nee enakku kedaichadhukku 💖<br><br>
+
+    Thanks Ammu, en life la vandhadhukku.
+    You are my second mother 💕<br><br>
+
+    I love you so much Ammu ❤️💛<br><br>
+
+    <strong>Will you marry me? 💍</strong><br><br>
+
+    Forever & Always Yours 💕
+</div>
+
+        <button class="btn close-btn" onclick="closeHeart()">Close</button>
+    </div>
+</div>
+
+<script>
+
+function moveButton(btn) {
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+}
+
+function showLove() {
+    document.querySelector('.question').style.display = 'none';
+    document.querySelector('.result').style.display = 'block';
+    document.getElementById("bgMusic").play();
+    startTyping();
+    startHearts();
+    updateLoveCounter();
+}
+
+const message = `You just made me the happiest person today 💖
+
+Having you as my Valentine
+is the best feeling ever ❤️
+
+Today, Tomorrow, Forever...
+It’s always YOU 💛`;
+
+function startTyping() {
+    let i = 0;
+    const speed = 50;
+    const textArea = document.getElementById("typingText");
+    textArea.innerHTML = "";
+    function type() {
+        if (i < message.length) {
+            textArea.innerHTML += message.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    type();
+}
+
+function startHearts() {
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'bg-heart';
+        heart.innerHTML = Math.random() > 0.5 ? '❤️' : '💛';
+        heart.style.left = Math.random() * 100 + 'vw';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+    }, 500);
+}
+
+/* Love Counter - Since We First Talked */
+const firstTalkDate = new Date("2025-03-01"); // March 1, 2025
+
+function updateLoveCounter() {
+    const today = new Date();
+    const diffTime = today - firstTalkDate;
+    const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    document.getElementById("loveCounter").innerHTML =
+        `💖 Namme rendu perum pesa start panni ${days} aayuruchu❤️`;
+}
+
+
+function openHeart() {
+    document.getElementById("heartPopup").style.display = "flex";
+}
+
+function closeHeart() {
+    document.getElementById("heartPopup").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
